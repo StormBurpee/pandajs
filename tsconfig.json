@@ -1,0 +1,22 @@
+{
+  "include": [],
+  "compilerOptions": {
+    "rootDir": "src",
+
+    "lib": ["es2020"],
+    "target": "es2020",
+
+    "module": "esnext",
+    "moduleResolution": "node",
+
+    "allowJs": false,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "removeComments": false
+  }
+}
