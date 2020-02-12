@@ -1,0 +1,20 @@
+{
+  "name": "pandajs",
+  "version": "0.1.0",
+  "description": "PandaJS Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Framework",
+    "PandaJS"
+  ],
+  "author": "Storm Burpee",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^13.7.1",
+    "rollup": "^1.31.0",
+    "typescript": "^3.7.5"
+  }
+}
