@@ -1,0 +1,9 @@
+# OS Specific
+.DS_Store
+
+# Directories
+node_modules
+
+# Application Specific
+.idea
+
