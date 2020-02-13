@@ -57,8 +57,8 @@ export interface ParserOptions {
 export interface Ast {
     html: TemplateNode;
     css: Style;
-    instance: Script;
-    module: Script;
+    script: Script;
+    // module: Script;
 }
 
 export interface Visitor {
