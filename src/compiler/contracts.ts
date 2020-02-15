@@ -19,13 +19,17 @@ export interface TextNode extends BaseNode {
     data: string
 }
 
-export type DirectiveType = 'Action' | 'Binding' | 'Class' | 'EventHandler' | 'Let' | 'Ref';
+export type DirectiveType = 'Action' | 'Binding' | 'Class' | 'EventHandler' | 'Let';
 
 export interface BaseDirective extends BaseNode {
     type: DirectiveType;
     expression: null | Node;
     name: string;
     modifiers: string[];
+}
+
+export interface AttributeNode extends BaseNode {
+    value: any[]
 }
 
 export type Directive = BaseDirective;

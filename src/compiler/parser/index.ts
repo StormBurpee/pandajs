@@ -3,7 +3,7 @@ import {Ast, Fragment, ParserOptions, Script, Style, TemplateNode} from "../cont
 import {reserved} from "../utils/names";
 import fragment from "./nodes/fragment";
 import error from "../utils/error";
-import full_char_code_at from "../utils/full_char_code_at";
+import fullCharCodeAt from "../utils/full_char_code_at";
 
 export type ParserState = (parser: Parser) => (ParserState | void);
 
@@ -79,18 +79,22 @@ export class Parser {
         return this.stack[this.stack.length - 1];
     }
 
+    public popStack(): TemplateNode | undefined {
+        return this.stack.pop();
+    }
+
     public match(str: string): boolean {
         return this.template.slice(this.index, this.index + str.length) === str;
     }
 
-    public match_regex(pattern: RegExp) {
+    public matchRegex(pattern: RegExp) {
         const match = pattern.exec(this.template.slice(this.index));
         if (!match || match.index !== 0) return null;
 
         return match[0];
     }
 
-    public allow_whitespace() {
+    public allowWhitespace() {
         while (
             this.index < this.template.length &&
             /[ \t\r\n]/.test(this.template[this.index])
@@ -99,7 +103,7 @@ export class Parser {
         }
     }
 
-    public require_whitespace() {
+    public requireWhitespace() {
         if (!/[ \t\r\n]/.test(this.template[this.index])) {
             this.error({
                 code: `missing-whitespace`,
@@ -107,7 +111,7 @@ export class Parser {
             });
         }
 
-        this.allow_whitespace();
+        this.allowWhitespace();
     }
 
     public eat(str: string, required?: boolean, message?: string): boolean {
@@ -127,23 +131,23 @@ export class Parser {
     }
 
     public read(pattern: RegExp) {
-        const result = this.match_regex(pattern);
+        const result = this.matchRegex(pattern);
         if (result) this.index += result.length;
         return result;
     }
 
-    public read_identifier(allow_reserved = false): string | null {
+    public readIdentifier(allow_reserved = false): string | null {
         const start = this.index;
 
         let i = this.index;
 
-        const code = full_char_code_at(this.template, i);
+        const code = fullCharCodeAt(this.template, i);
         if (!isIdentifierStart(code, true)) return null;
 
         i += code <= 0xffff ? 1 : 2;
 
         while (i < this.template.length) {
-            const code = full_char_code_at(this.template, i);
+            const code = fullCharCodeAt(this.template, i);
 
             if (!isIdentifierChar(code, true)) break;
             i += code <= 0xffff ? 1 : 2;
@@ -161,7 +165,7 @@ export class Parser {
         return identifier;
     }
 
-    public read_until(pattern: RegExp): string {
+    public readUntil(pattern: RegExp): string {
         if (this.index >= this.template.length)
             this.error({
                 code: `unexpected-eof`,
@@ -180,14 +184,14 @@ export class Parser {
         return this.template.slice(start);
     }
 
-    public internal_parser_error(err: any) {
+    public internalParserError(err: any): never {
         this.error({
             code: `parse-error`,
             message: err.message.replace(/ \(\d+:\d+\)$/, '')
         }, err.pos);
     }
 
-    public error({code, message}: { code: string; message: string }, index = this.index) {
+    public error({code, message}: { code: string; message: string }, index = this.index): never {
         error(message, {
             name: 'ParseError',
             code,
@@ -213,6 +217,14 @@ export class Parser {
         return this.index;
     }
 
+    public incrementIndex(): number {
+        return this.index++;
+    }
+
+    public setIndex(index: number): number {
+        return this.index = index;
+    }
+
     public getStack(): TemplateNode[] {
         return this.stack;
     }
@@ -227,6 +239,14 @@ export class Parser {
 
     public getJs(): Script[] {
         return this.js;
+    }
+
+    public pushCss(style: Style): void {
+        this.css.push(style);
+    }
+
+    public pushJs(script: Script): void {
+        this.js.push(script);
     }
 }
 

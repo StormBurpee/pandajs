@@ -1,5 +1,1 @@
-function helloWorld(): void {
-    console.log("Hello, world!");
-}
-
-document.addEventListener('DOMContentLoaded', helloWorld);
+export {default as parse} from './parser';

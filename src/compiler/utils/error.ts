@@ -21,7 +21,7 @@ export default function error(message: string, props: {
     filename?: string;
     start: number;
     end?: number;
-}): void {
+}): never {
     const error = new CompileError(message);
     error.name = props.name;
 

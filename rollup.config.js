@@ -3,7 +3,7 @@ import typescript from 'rollup-plugin-typescript2';
 
 export default [
     {
-        input: './src/compiler/entry.ts',
+        input: './src/compiler/index.ts',
         output: [
             {
                 file: 'dist/compiler/compiler.js',

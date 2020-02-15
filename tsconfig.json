@@ -17,6 +17,6 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "removeComments": false
+    "removeComments": true
   }
 }

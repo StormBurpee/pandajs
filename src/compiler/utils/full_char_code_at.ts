@@ -1,4 +1,4 @@
-export default function full_char_code_at(str: string, i: number): number {
+export default function fullCharCodeAt(str: string, i: number): number {
     const code = str.charCodeAt(i);
     if (code <= 0xd7ff || code >= 0xe000) return code;
 
